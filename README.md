@@ -5,7 +5,7 @@ This tutorial uses the default terminal on a computer running MacOS. Vim and Pyt
 ## Initializing a Project
 We will be exclusively using the command line for this project. Let's start by creating the directory and files we will be working on, and initializing git.
 ### Create a directory
-Open the "Terminal" application. You should be met with a blank window that looks like this (with your login information, not mine!): !(images/new_window.png)
+Open the "Terminal" application. You should be met with a blank window that looks like this (with your login information, not mine!): ![terminal window](images/new_window.png)
 Navigate to the directory you want your project to be stored in with `cd [FILEPATH]`, replacing `[FILEPATH]` with the path. Alternatively, you can stay in the home directory. Create a new directory at this location:
 ```shell
 mkdir git-tutorial
