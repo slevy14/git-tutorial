@@ -1,8 +1,3 @@
-# Git Tutorial
-## Instructions
-Write a follow-along tutorial for CS students that teaches them how to use git from the command line. The tutorial should use a small coding project as the context for the reader to apply git commands, with the goal that students will be able to use git for their own projects afterwards. Your tutorial must cover the use of stashes and branches, and one of either rebasing or merging. You are not required to go into detail about git internals such as the commit graph, although you are also not prohibited from doing so; use your own judgment for how much detail to present given the goal of the tutorial.  
-  
-This assignment has no page constraints, and you are encouraged to include images and other supporting elements to make the tutorial easier to follow. Your tutorial should be submitted as a URL, such as a GitHub URL with a Markdown file that could be read online. If you want to use a different design for your URL, please speak with me.
 ## Introduction
 This project is a tutorial on the basics of using git for version control. Created for my Computer Science Junior Seminar, Spring 2024.
 ## Initializing a Project
@@ -123,27 +118,24 @@ print("the sum of", a, "and", b, "is", testing.add_two_nums(a, b))
 - everything else in the future is just git push
 ## Conclusion
 And that's it! You should now have the tools to create both a local repository on your computer and a remote repository on GitHub.
-## Vim
-Vim is the command line text editor that I'm most familiar with, so it's what I use here. For more information and a quick shortcut/command reference, check out https://vim.rtorr.com/.
 ## Quick Command Reference
-A brief summary of all of the commands covered here, as well as a few more!
+A brief summary of all of the commands covered here, as well as a few more!   
 
-`cd [DIRECTORY]` changes your current directory.
-`mkdir [DIRECTORY NAME]` creates a new directory at your current location
-`touch [FILENAME]` creates a new file at your current location.
-`vim [FILENAME]` opens a file in Vim. I use Vim here because it is the command line text editor that I'm most familiar with. For more information and a quick shortcut/command reference, check out https://vim.rtorr.com/.
-`python3 [FILENAME].py` runs a python file.
-
-`git init` creates a new local git repository at your current location.
-`git status` shows you the current status of your working tree: files that are untracked, changes that are staged and unstaged, etc.
-`git add`
-`git commit`
-`git stash`
-`git branch`
-`git switch`
-`git merge`
-`git rebase`
-`git log` shows you the full commit history of your project.
-`git log --graph` shows you the same information, but split into branches.
-
+`cd [DIRECTORY]` changes your current directory.   
+`mkdir [DIRECTORY NAME]` creates a new directory at your current location.   
+`touch [FILENAME]` creates a new file at your current location.   
+`vim [FILENAME]` opens a file in Vim. I use Vim here because it is the command line text editor that I'm most familiar with. For more information and a quick shortcut/command reference, check out https://vim.rtorr.com/.   
+`python3 [FILENAME].py` runs a python file.   
+<br>
+`git init` creates a new local git repository at your current location.   
+`git status` shows you the current status of your working tree: files that are untracked, changes that are staged and unstaged, etc.   
+`git add [FILENAME]|.` stages the desired file, or stages all changes by using `.`.   
+`git commit -m "MESSAGE"` creates a new commit on the current branch with the desired message.   
+`git stash` saves all changes on the working tree without creating a new commit. This is necessary to switch branches without committing. `git stash pop` restores the most recently stashed changes to the working tree.   
+`git branch [BRANCH NAME]` creates a new branch. Without the branch name, `git branch` lists all branches.    
+`git switch [BRANCH NAME]` switches the working directory to the desired branch.
+`git merge [BRANCH NAME]` merges a desired branch into the current branch. This is done by using the last commits from both branches as parent commits and attempting to combine them. Often, this will result in conflicts that can be solved using vim or another text editor.   
+`git rebase [BRANCH NAME]` takes the commit history of one branch and effectively "replays" it onto the most recent commit of the current branch. This can also result in conflicts that the user must solve using vim or another text editor.   
+`git log` shows you the full commit history of your project.   
+`git log --graph` shows you the same information, but split into branches.   
 
