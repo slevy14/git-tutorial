@@ -1,3 +1,4 @@
+# Git Tutorial
 ## Instructions
 Write a follow-along tutorial for CS students that teaches them how to use git from the command line. The tutorial should use a small coding project as the context for the reader to apply git commands, with the goal that students will be able to use git for their own projects afterwards. Your tutorial must cover the use of stashes and branches, and one of either rebasing or merging. You are not required to go into detail about git internals such as the commit graph, although you are also not prohibited from doing so; use your own judgment for how much detail to present given the goal of the tutorial.  
   
