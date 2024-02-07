@@ -1,45 +1,106 @@
 ## Introduction
-This project is a tutorial on the basics of using git for version control. Created for my Computer Science Junior Seminar, Spring 2024.
+This is a tutorial on the basics of using git for version control in the command line. Created for my Computer Science Junior Seminar, Spring 2024.
+## Required Applications
+This tutorial uses the default terminal on a computer running MacOS. Vim and Python3 are required to follow along with the tutorial. In my environment, Python3 is run using the command `python3`; if this doesn't work in yours, try `python`.
 ## Initializing a Project
+We will be exclusively using the command line for this project. Let's start by creating the directory and files we will be working on, and initializing git.
 ### Create a directory
-- open terminal
-- navigate to directory you want your project to be located in
-- mkdir git-tutorial
-- cd into that directory
+Open the "Terminal" application. You should be met with a blank window that looks like this (with your login information, not mine!): ![[new_window.png]]
+Navigate to the directory you want your project to be stored in with `cd [FILEPATH]`, replacing `[FILEPATH]` with the path. Alternatively, you can stay in the home directory. Create a new directory at this location:
+```shell
+mkdir git-tutorial
+```
+And enter that directory:
+```shell
+cd git-tutorial
+```
 ### Create a file
-- touch hello.py
-- vim touch.py
-- type print("hello!")
-- hit escape, :wq
+Now that we have a directory for our project, lets create a new file before initializing Git. Create a new python file:
+```shell
+touch hello.py
+```
+Next, we'll edit the file using Vim. Vim is a command line text editor that can do everything we need! Open the file with the following command:
+```shell
+vim hello.py
+```
+Press `i` to put vim in insert mode to start editing the file. Add the following line to the python file:
+```python
+print("hello!")
+```
+That's all we want to add for now, so let's exit Vim. Press `esc` to exit insert mode, then type `:wq` to save the file and exit Vim.
 ### Test the file
-- python3 hello.py
-	- (or python, however its configured in your environment)
-- Should see output (photo)
+Let's see what this file does! In the command prompt, type:
+```shell
+python3 hello.py
+```
+You should see the following output:
+```Output
+hello!
+```
 ### Initialize Git
-- git init
+Here's where the real fun begins. We'll initialize this project as a local git repository:
+```shell
+git init
+```
+Git is a version control system that allows us to save changes, track a project's history, create multiple feature branches, and much more. Let's take a deeper look at what we can do with git, how we can do it, and why.
 ## Committing Your Changes
+Committing is how we save changes in git. Any files that are added, deleted, or edited are added to a list of changes to be committed. Commit your changes often and leave clear messages with them that describe what you changed. Let's make our first commit.
 ### Create an initial commit
-- git status
-- git add hello.py
-- git commit -m "initial commit"
+In the command prompt, enter:
+```shell
+git status
+```
+This will give you a list of all staged changes (green) and unstaged/untracked changes (red). Notice that our file `hello.py` is currently untracked. This means that this file has not yet been part of a commit, and its changes are not being tracked by git. Let's add it to our commit:
+```shell
+git add hello.py
+```
+If you run `git status` again, you'll see that `hello.py` is now staged. Now let's make the actual commit:
+```shell
+git commit -m "initial commit"
+```
+We add our commit message as an argument to the command `git commit` by using `-m "MESSAGE"`. The message is just a label that explains what we did in the commit. In this case, "initial commit" works as the message, as we haven't yet done much.
 ### Edit a file
-- vim hello.py
-- add lines print("io triumphe!") and print(9+10)
-- python3 hello.py
-- Should see output (photo)
+Let's edit our file a bit. Open up vim:
+```shell
+vim hello.py
+```
+Press `i` to insert, and add the following lines to the file just below the first print statement:
+```python
+print("io triumphe!")
+print(9+10)
+```
+Hit `esc`, then `:wq` to save your work. You should see the following output:
+```output
+hello!
+io triumphe!
+19
+```
 ### Commit your changes
-- git status
-- git add hello.py
-- git commit -m "added new print statements"
+Now that we've made some more changes, it's time to commit them. If you want to see which files are staged, you can run `git status` again. It's not necessary here, as we only made changes on one file, but this would be more useful if you had more files to track, or if wanted to make sure certain files were staged but not others, for example.   
 
+Because we `hello.py` exists in a previous commit, it is no longer untracked. However, the changes we made to it are currently unstaged, so let's add them to the commit:
+```shell
+git add hello.py
+```
+Everything is staged, so let's commit:
+```shell
+git commit -m "added new print statements"
+```
 ### Make more changes and commit
-- create a new file, touch testing.py
-- vim testing.py, create function
+Let's make things a little more complicated for our next commit. Create a new file:
+```shell
+touch testing.py
+```
+And open it in vim:
+```shell
+vim testing.py
+```
+As before, press `i` to enter insert mode and add the following function:
 ```python
 def secondfile():
 	print("this function is from testing.py!")
 ```
-- vim hello.py, call function
+Hit `esc` and type `:wq` to save the file. Back to `hello.py`, let's reopen it in vim and make some changes. Add the new lines to your code so it looks like this:
 ```python
 import testing
 
@@ -49,31 +110,81 @@ print(9 + 10)
 
 testing.secondfile()
 ```
-- git add . (stages everything)
-- git commit -m "created second file"
-- commit often!!
+Run the file in the command prompt:
+```shell
+python3 hello.py
+```
+And it should produce the following output:
+```Output
+hello!
+io triumphe!
+19
+this function is from testing.py!
+```
+
+If we run the command `git status`, you'll see that neither of the files are staged. Note that `testing.py` is untracked because it is new, but `hello.py` is tracked and unstaged. We can stage both of these files together with:
+```shell
+git add .
+```
+The `.` argument in place of a file name stages everything that is currently unstaged. Let's commit one more time:
+```shell
+git commit -m "created second file"
+```
+Remember to commit often! Git is just like any word processor or video game -- save often so you don't lose your work!
 ## Stashing and Branching
+Git allows you to create multiple branches of commits for working on different features, experimenting, separating the work of different collaborators, and more. In this section, we'll look at how branches and stashing work.
 ### Make some changes
-- vim testing.py, create new function
+Reopen `testing.py` in Vim:
+```shell
+vim testing.py
+```
+Press `i` to insert, and add the following function beneath your print statement:
 ```python
 def add_two_nums(a, b):
 	return(a + b)
 ```
-- vim hello.py, call new function (append to bottom)
+Hit `esc`, then `:wq` to save your work. Now, call this function from `hello.py` by reopening it in Vim:
+```shell
+vim hello.py
+```
+Append the following lines to the bottom of your code:
 ```python
 a = 6
 b = 15
 print("the sum of", a, "and", b, "is", testing.add_two_nums(a, b))
 ```
-- run the file
-- output as follows: (photo)
+Hit `esc`, then `:wq` to save your work. Run the file:
+```shell
+python3 hello.py
+```
+And you'll see the following output:
+```Output
+hello!
+io triumphe!
+19
+this function is from testing.py!
+the sum of 6 and 15 is 21
+```
 ### Stash those changes
-- we don't actually want to commit those changes now
-- git stash, working tree is clean
+What if you don't actually want to commit those changes now? Let's stash the changes: this will remove the changes from the working tree, but save them to be restored later if you want. Run the following command:
+```shell
+git stash
+```
+After this, if you run `git status`, you'll see that the working tree is clean, despite the fact that we didn't commit these changes. In fact, if you run the file with `python3 hello.py`, you'll see that the last line of the output is missing. The files are reverted to their status at the previous commit without any edits. In a bit you will see why this is a necessary step before branching (in fact, git wont let you switch branches without a clean working tree).
 ### Make a branch
-- git branch new-branch
-- git branch (to see branches)
-- git switch new-branch
+One reason to make a branch may be to make experimental changes without effecting the main branch. Make a new branch called "new-branch" to make some changes on:
+```shell
+git branch new-branch
+```
+Now that we have a new branch, run the command without any arguments to see a list of all branches:
+```shell
+git branch
+```
+The branch you are currently on will be highlighted. Creating a branch doesn't switch which branch you're on. Instead, you have to do that manually:
+```shell
+git switch new-branch
+```
+If we hadn't committed or stashed our previous changes, this command would fail. But we're one step ahead and already stashed everything, so this should work! Run `git branch` one more time if you want to confirm that you're on the correct branch.
 ### Make some changes and commit
 - vim testing.py
 - change line 2 to print("now we're on a new branch!")
@@ -124,7 +235,7 @@ A brief summary of all of the commands covered here, as well as a few more!
 `cd [DIRECTORY]` changes your current directory.   
 `mkdir [DIRECTORY NAME]` creates a new directory at your current location.   
 `touch [FILENAME]` creates a new file at your current location.   
-`vim [FILENAME]` opens a file in Vim. I use Vim here because it is the command line text editor that I'm most familiar with. For more information and a quick shortcut/command reference, check out https://vim.rtorr.com/.   
+`vim [FILENAME]` opens a file in Vim. Press `i` to enter insert mode, `esc` to exit, and `:wq` to save and quit. I use Vim here because it is the command line text editor that I'm most familiar with. For more information and a quick shortcut/command reference, check out https://vim.rtorr.com/.   
 `python3 [FILENAME].py` runs a python file.   
 <br>
 `git init` creates a new local git repository at your current location.   
