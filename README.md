@@ -1,9 +1,9 @@
 ## Introduction
-This is a tutorial on the basics of using git for version control in the command line. Created for my Computer Science Junior Seminar, Spring 2024.
+This is a tutorial on the basics of using Git for version control in the command line. Created for my Computer Science Junior Seminar, Spring 2024.
 ## Required Applications
-This tutorial uses the default terminal on a computer running MacOS. Vim and Python3 are required to follow along with the tutorial. In my environment, Python3 is run using the command `python3`; if this doesn't work in yours, try `python`. This tutorial also assumes you have an account on [GitHub](github.com) -- if you don't setting one up is straightforward.
+This tutorial uses the default terminal on a computer running MacOS. Vim and Python3 are required to follow along with the tutorial. In my environment, Python3 is run using the command `python3`; if this doesn't work in yours, try `python`. This tutorial also assumes you have an account on [GitHub](github.com) -- if you don't, setting one up is straightforward.
 ## Initializing a Project
-We will be exclusively using the command line for this project. Let's start by creating the directory and files we will be working on, and initializing git.
+We will be exclusively using the command line for this project. Let's start by creating the directory and files we will be working on, and initializing Git.
 ### Create a directory
 Open the "Terminal" application. You should be met with a blank window that looks like this (with your login information, not mine!): ![terminal window](images/new_window.png)
 Navigate to the directory you want your project to be stored in with `cd [FILEPATH]`, replacing `[FILEPATH]` with the path. Alternatively, you can stay in the home directory. Create a new directory at this location:
@@ -23,7 +23,7 @@ Next, we'll edit the file using Vim. Vim is a command line text editor that can 
 ```shell
 vim hello.py
 ```
-Press `i` to put vim in insert mode to start editing the file. Add the following line to the python file:
+Press `i` to put Vim in insert mode to start editing the file. Add the following line to the python file:
 ```python
 print("hello!")
 ```
@@ -38,19 +38,19 @@ You should see the following output:
 hello!
 ```
 ### Initialize Git
-Here's where the real fun begins. We'll initialize this project as a local git repository:
+Here's where the real fun begins. We'll initialize this project as a local Git repository:
 ```shell
 git init
 ```
-Git is a version control system that allows us to save changes, track a project's history, create multiple feature branches, and much more. Let's take a deeper look at what we can do with git, how we can do it, and why.
+Git is a version control system that allows us to save changes, track a project's history, create multiple feature branches, and much more. Let's take a deeper look at what we can do with Git, how we can do it, and why.
 ## Committing Your Changes
-Committing is how we save changes in git. Any files that are added, deleted, or edited are added to a list of changes to be committed. Commit your changes often and leave clear messages with them that describe what you changed. Let's make our first commit.
+Committing is how we save changes in Git. Any files that are added, deleted, or edited are added to a list of changes to be committed. Commit your changes often and leave clear messages with them that describe what you changed. Let's make our first commit.
 ### Create an initial commit
 In the command prompt, enter:
 ```shell
 git status
 ```
-This will give you a list of all staged changes (green) and unstaged/untracked changes (red). Notice that our file `hello.py` is currently untracked. This means that this file has not yet been part of a commit, and its changes are not being tracked by git. Let's add it to our commit:
+This will give you a list of all staged changes (green) and unstaged/untracked changes (red). Notice that our file `hello.py` is currently untracked. This means that this file has not yet been part of a commit, and its changes are not being tracked by Git. Let's add it to our commit:
 ```shell
 git add hello.py
 ```
@@ -60,7 +60,7 @@ git commit -m "initial commit"
 ```
 We add our commit message as an argument to the command `git commit` by using `-m "MESSAGE"`. The message is just a label that explains what we did in the commit. In this case, "initial commit" works as the message, as we haven't yet done much.
 ### Edit a file
-Let's edit our file a bit. Open up vim:
+Let's edit our file a bit. Open up Vim:
 ```shell
 vim hello.py
 ```
@@ -91,7 +91,7 @@ Let's make things a little more complicated for our next commit. Create a new fi
 ```shell
 touch testing.py
 ```
-And open it in vim:
+And open it in Vim:
 ```shell
 vim testing.py
 ```
@@ -100,7 +100,7 @@ As before, press `i` to enter insert mode and add the following function:
 def secondfile():
 	print("this function is from testing.py!")
 ```
-Hit `esc` and type `:wq` to save the file. Back to `hello.py`, let's reopen it in vim and make some changes. Add the new lines to your code so it looks like this:
+Hit `esc` and type `:wq` to save the file. Back to `hello.py`, let's reopen it in Vim and make some changes. Add the new lines to your code so it looks like this:
 ```python
 import testing
 
@@ -170,7 +170,7 @@ What if you don't actually want to commit those changes now? Let's stash the cha
 ```shell
 git stash
 ```
-After this, if you run `git status`, you'll see that the working tree is clean, despite the fact that we didn't commit these changes. In fact, if you run the file with `python3 hello.py`, you'll see that the last line of the output is missing. The files are reverted to their status at the previous commit without any edits. In a bit you will see why this is a necessary step before branching (in fact, git wont let you switch branches without a clean working tree).
+After this, if you run `git status`, you'll see that the working tree is clean, despite the fact that we didn't commit these changes. In fact, if you run the file with `python3 hello.py`, you'll see that the last line of the output is missing. The files are reverted to their status at the previous commit without any edits. In a bit you will see why this is a necessary step before branching (in fact, Git won't let you switch branches without a clean working tree).
 ### Make a branch
 One reason to make a branch may be to make experimental changes without effecting the main branch. Make a new branch called "new-branch" to make some changes on:
 ```shell
@@ -237,7 +237,7 @@ def secondfile():
 	print("this is the main branch!")
 	print("now we're on a new branch!")
 ```
-As usual, hit `esc` and `:wq` to save and exit vim. Now that we've resolved the merge conflict, let's stage our changes and commit the merge:
+As usual, hit `esc` and `:wq` to save and exit Vim. Now that we've resolved the merge conflict, let's stage our changes and commit the merge:
 ```shell
 git add .
 git commit-m "resolved merge conflict, kept both lines"
@@ -249,11 +249,11 @@ git stash pop
 ```
 After running this command, you will likely be met with an output that looks like this:
 ![stash_pop](images/stash_pop.png)
-Similar to the conflict we encountered while merging branches, there is also a conflict while trying to merge the stashed changes with the current branch. Like before, let's reopen `testing.py` in vim to see what the conflict is:
+Similar to the conflict we encountered while merging branches, there is also a conflict while trying to merge the stashed changes with the current branch. Like before, let's reopen `testing.py` in Vim to see what the conflict is:
 ```shell
 vim testing.py
 ```
-Press `i` to insert, and make any changes you want. I chose to keep everything, but feel free to choose one version or the other if you wish. Also, note that not all of `testing.py` has this conflict; the only lines that cause an issue are the ones that are changed in both versions. The second function added below the print statements should be left alone. Make sure to delete the markers before exiting vim. Hit `esc` and `:wq` to save and exit when you're finished. Finally, commit your changes:
+Press `i` to insert, and make any changes you want. I chose to keep everything, but feel free to choose one version or the other if you wish. Also, note that not all of `testing.py` has this conflict; the only lines that cause an issue are the ones that are changed in both versions. The second function added below the print statements should be left alone. Make sure to delete the markers before exiting Vim. Hit `esc` and `:wq` to save and exit when you're finished. Finally, commit your changes:
 ```shell
 git add .
 git commit -m "add stashed changes"
@@ -264,7 +264,7 @@ Git is great for tracking changes and branching on a local machine, but what if 
 Navigate to [github.com](github.com) using your favorite web browser and sign in. Create a new public repository, name it "git-tutorial", and make sure to choose the correct menu options for the following:
 - No readme
 - No license
-- No gitignore
+- No gitignore   
 Click the button to continue. On the next screen, you should see a link to copy the remote repository URL (ending in `.git`). Copy that to your clipboard.
 ### Set up origin
 Back in terminal, make sure you're in the correct project directory. If not, use `cd [FILEPATH]` to return. Next, enter the following into the command prompt, but replace `[REMOTE-URL]` with the URL you copied in the previous step:
@@ -309,8 +309,8 @@ A brief summary of all of the commands covered here, as well as a few more!
 `git stash` saves all changes on the working tree without creating a new commit. This is necessary to switch branches without committing. `git stash pop` restores the most recently stashed changes to the working tree.   
 `git branch [BRANCH NAME]` creates a new branch. Without the branch name, `git branch` lists all branches.    
 `git switch [BRANCH NAME]` switches the working directory to the desired branch.
-`git merge [BRANCH NAME]` merges a desired branch into the current branch. This is done by using the last commits from both branches as parent commits and attempting to combine them. Often, this will result in conflicts that can be solved using vim or another text editor.   
-`git rebase [BRANCH NAME]` takes the commit history of one branch and effectively "replays" it onto the most recent commit of the current branch. This can also result in conflicts that the user must solve using vim or another text editor.   
+`git merge [BRANCH NAME]` merges a desired branch into the current branch. This is done by using the last commits from both branches as parent commits and attempting to combine them. Often, this will result in conflicts that can be solved using Vim or another text editor.   
+`git rebase [BRANCH NAME]` takes the commit history of one branch and effectively "replays" it onto the most recent commit of the current branch. This can also result in conflicts that the user must solve using Vim or another text editor.   
 `git log` shows you the full commit history of your project.   
 `git log --graph` shows you the same information, but split into branches.   
 
