@@ -264,7 +264,8 @@ Git is great for tracking changes and branching on a local machine, but what if 
 Navigate to [github.com](github.com) using your favorite web browser and sign in. Create a new public repository, name it "git-tutorial", and make sure to choose the correct menu options for the following:
 - No readme
 - No license
-- No gitignore   
+- No gitignore
+
 Click the button to continue. On the next screen, you should see a link to copy the remote repository URL (ending in `.git`). Copy that to your clipboard.
 ### Set up origin
 Back in terminal, make sure you're in the correct project directory. If not, use `cd [FILEPATH]` to return. Next, enter the following into the command prompt, but replace `[REMOTE-URL]` with the URL you copied in the previous step:
