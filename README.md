@@ -1,7 +1,7 @@
 ## Introduction
 This is a tutorial on the basics of using git for version control in the command line. Created for my Computer Science Junior Seminar, Spring 2024.
 ## Required Applications
-This tutorial uses the default terminal on a computer running MacOS. Vim and Python3 are required to follow along with the tutorial. In my environment, Python3 is run using the command `python3`; if this doesn't work in yours, try `python`.
+This tutorial uses the default terminal on a computer running MacOS. Vim and Python3 are required to follow along with the tutorial. In my environment, Python3 is run using the command `python3`; if this doesn't work in yours, try `python`. This tutorial also assumes you have an account on [GitHub](github.com) -- if you don't setting one up is straightforward.
 ## Initializing a Project
 We will be exclusively using the command line for this project. Let's start by creating the directory and files we will be working on, and initializing git.
 ### Create a directory
@@ -185,48 +185,112 @@ The branch you are currently on will be highlighted. Creating a branch doesn't s
 git switch new-branch
 ```
 If we hadn't committed or stashed our previous changes, this command would fail. But we're one step ahead and already stashed everything, so this should work! Run `git branch` one more time if you want to confirm that you're on the correct branch.
-### Make some changes and commit
-- vim testing.py
-- change line 2 to print("now we're on a new branch!")
-- commit the changes
+### Make some changes and commit on the new branch
+On this new branch, we'll make some changes to `testing.py`. Open it in Vim:
+```shell
+vim testing.py
+```
+Press `i` to insert, and change line 2 to the following:
+```python
+print("now we're on a new branch!")
+```
+Hit `esc` and type `:wq` to save and exit Vim. Commit your changes:
+```shell
+git add .
+git commit -m "changed line 2 in testing.py on the new branch"
+```
 ### Switch branches
-- git switch master
-### Make some changes and commit
-- vim testing.py
-- change line 2 to print("this is the main branch!")
-- commit the changes
+Switch back to the main branch, called master in our case:
+```shell
+git switch master
+```
+### Make some changes and commit on the main branch
+Now that we're back on the main branch, let's change the same line that we changed on our other branch. Open the file up in Vim:
+```shell
+vim testing.py
+```
+Press `i` to insert, and change line 2 to the following:
+```python
+print("this is the main branch!")
+```
+Hit `esc` and type `:wq` to save and exit Vim. Commit your changes:
+```shell
+git add .
+git commit -m "changed line 2 in testing.py on the main branch"
+```
 ## Merging
+We're done making changes on the new branch and won't be using it again, so let's add those changes back to the master branch. To do that, we will need to either `merge` or `rebase` the new branch onto the master. This tutorial will show how to `merge`, though the process required to `rebase` is very similar.
 ### Merge new branch into main
-- make sure you're on master
-- git merge new-branch
-- oh no! problems :(
-	- notice that the issue is with testing.py
+Make sure that you're on the main branch. Use `git branch` to confirm, and `git switch` if you need to change branches. Let's attempt the merge. The following command will merge the selected branch into the current branch:
+```shell
+git merge new-branch
+```
+Oh look, it didn't work. You likely got some sort of error message mentioning something about a "merge conflict". This happens when the same line is edited on the same file on two different branches. Notice that the file with the merge conflict is `testing.py`, and that there are no errors with `hello.py`. Let's try to resolve these conflicts.
 ### Resolve conflicts
-- vim testing.py
-- choose which one we want to keep -- lets actually keep both
-- save the file
-- git add .
-- git commit -m "resolved merge conflict, kept both lines"
+Open `testing.py` with Vim to see what the conflict is:
+```shell
+vim testing.py
+```
+Notice that the file looks a bit different than the last time you opened it. In order to help you resolve the merge conflict, markers (`<<<<<<` at the beginning, `======` between the differences, `>>>>>>` at the end ) were added to show you where the difference is. From here, it's up to you to choose how to resolve the conflict. Press `i` to insert, and make any changes to the file that you'd like. For the purposes of this tutorial, keep the changes from both branches, but delete the markers. Your `testing.py` file should look like this:
+```python
+def secondfile():
+	print("this is the main branch!")
+	print("now we're on a new branch!")
+```
+As usual, hit `esc` and `:wq` to save and exit vim. Now that we've resolved the merge conflict, let's stage our changes and commit the merge:
+```shell
+git add .
+git commit-m "resolved merge conflict, kept both lines"
+```
 ### Restore changes from stash
-- not part of merge, but lets restore from stash
-- git stash pop
-- notice how testing.py is different bc merges
-- vim testing.py
-- edit this however you want! i'll choose to keep everything
-- git add .
-- git commit -m "add stashed changes"
-## Github
+This next step is not part of the merging process, but it is helpful to see what our stashed changes look like now that we have changed multiple files on different branches. First, restore the changes from the stash to the working tree:
+```shell
+git stash pop
+```
+After running this command, you will likely be met with an output that looks like this:
+![stash_pop](images/stash_pop.png)
+Similar to the conflict we encountered while merging branches, there is also a conflict while trying to merge the stashed changes with the current branch. Like before, let's reopen `testing.py` in vim to see what the conflict is:
+```shell
+vim testing.py
+```
+Press `i` to insert, and make any changes you want. I chose to keep everything, but feel free to choose one version or the other if you wish. Also, note that not all of `testing.py` has this conflict; the only lines that cause an issue are the ones that are changed in both versions. The second function added below the print statements should be left alone. Make sure to delete the markers before exiting vim. Hit `esc` and `:wq` to save and exit when you're finished. Finally, commit your changes:
+```shell
+git add .
+git commit -m "add stashed changes"
+```
+## GitHub
+Git is great for tracking changes and branching on a local machine, but what if you want to collaborate with others? Or, what happens if your computer breaks or is stolen? By keeping everything local, you run the risk of losing everything, despite your version control efforts. This is where GitHub comes in: by storing your changes in a remote repository, you are able to easily collaborate with others and back your code up externally. Let's take a look at how to put this existing project up on GitHub.
 ### Create repository on GitHub
-- no readme, license, or gitignore
-- copy remote repository URL
+Navigate to [github.com](github.com) using your favorite web browser and sign in. Create a new public repository, name it "git-tutorial", and make sure to choose the correct menu options for the following:
+- No readme
+- No license
+- No gitignore
+Click the button to continue. On the next screen, you should see a link to copy the remote repository URL (ending in `.git`). Copy that to your clipboard.
 ### Set up origin
-- make sure you're in project directory
-- git remote add origin REMOTE-URL
-- confirm with git remote -v
+Back in terminal, make sure you're in the correct project directory. If not, use `cd [FILEPATH]` to return. Next, enter the following into the command prompt, but replace `[REMOTE-URL]` with the URL you copied in the previous step:
+```shell
+git remote add origin [REMOTE-URL]
+```
+If this works properly, you should see no output. Confirm that this is working properly with the command `git remote -v`.
 ### Push changes to GitHub
-- first push is git push -u origin master
-	- whatever is the name of the default branch, mine is master but sometimes its main
-- everything else in the future is just git push
+The first time we push to GitHub, we'll use the following command:
+```shell
+git push -u origin master
+```
+This pushes the entire commit history of the master branch to GitHub. As mentioned before, if the name of your main branch is not `master`, replace that argument with the name of your main branch. This process could be repeated for the `new-branch` branch we used previously, or for any other branch in the future, by replacing the final argument with the name of the branch.   
+From here on, every time you want to push your commits to GitHub, you just need to use the command:
+```shell
+git push
+```
+
+### GitHub Workflow
+To keep the code on your local machine consistent with GitHub, make sure to push when you commit. After making changes to your code, this is what your commit process will generally look like:
+```shell
+git add .
+git commit -m "message"
+git push
+```
+This tutorial does not go into depth about how to collaborate with others on GitHub, but it may be helpful to be aware of the command `git pull`, which pulls all changes and commits from GitHub and merges them with your local commit history. When working with others, this unsurprisingly (and often) this leads to merge conflicts -- but you know how to deal with those!
 ## Conclusion
 And that's it! You should now have the tools to create both a local repository on your computer and a remote repository on GitHub.
 ## Quick Command Reference
