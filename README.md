@@ -45,6 +45,8 @@ git init
 Git is a version control system that allows us to save changes, track a project's history, create multiple feature branches, and much more. Let's take a deeper look at what we can do with Git, how we can do it, and why.
 ## Committing Your Changes
 Committing is how we save changes in Git. Any files that are added, deleted, or edited are added to a list of changes to be committed. Commit your changes often and leave clear messages with them that describe what you changed. Let's make our first commit.
+### Working Tree and Staging Area
+All changes (code edits, new files, deleted files, etc.) you make to your project are on your **working tree**. In order to commit these changes, we need to **stage** them. This distinction between the working tree and the staging area allows us to choose which changes we want to commit and which we want to leave on our working tree.
 ### Create an initial commit
 In the command prompt, enter:
 ```shell
